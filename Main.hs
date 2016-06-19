@@ -1,14 +1,15 @@
 import Reflex.Dom
 
 fps = "style" =: "display:inline-block;  margin:10px;  border-style:solid;  border-width:1px"
-bps w = "style" =: ("display:inline-block;  margin:10px;  border-style:solid;  border-width:" ++ show w ++ "px")
 
-main :: IO ()
+bps len = "style" =: ("display:inline-block;  margin:10px;  border-style:solid;  border-width:" ++ show len ++ "px")
+
 main = mainWidget $ do
-    el "div" $ text "helloWorld"
+    elAttr "div" fps $ text "helloworld"
     ti <- elAttr "div" fps $ textInput def
-    let dText = value ti
-    dBps <- mapDyn (bps.length) dText
-    elDynAttr "div"  dBps $ dynText dText
+    let dString = value ti
+    dStyle <- mapDyn (bps.length) dString
+    elDynAttr "div" dStyle $ dynText dString
     return ()
-    
+
+
